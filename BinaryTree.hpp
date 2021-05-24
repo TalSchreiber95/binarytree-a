@@ -5,7 +5,7 @@
 #include <stack>
 #include <string>
 #include <list>
-
+using namespace std;
 
 namespace ariel{
 
@@ -13,15 +13,15 @@ namespace ariel{
     class BinaryTree{
         
         struct Node{ // Node's structure
-            Node* right=nullptr;
-            Node* left= nullptr;
+            Node* right;
+            Node* left;
             T data;
             Node(T d): data(d),right(nullptr),left(nullptr){}
         };
         Node* root;
 
         public:
-        BinaryTree<T>(){ root(nullptr)};
+        BinaryTree<T>(): root(nullptr){}
 
         BinaryTree<T> add_root(const T& d){
                 if(root==nullptr){ // if root doesn't exist --> creat new root
@@ -46,18 +46,18 @@ namespace ariel{
                 /* until no left exist */
                 while (itr!=NULL)
                 {
-                    s.push(itr);
+                    stk->push(itr);
                     itr=itr->left;
                 }
 
-                itr= itr.top();
-                itr.pop();
+                // stk= stk->top();
+                stk = stk->pop();
                 if(itr->data==perent){
                     if(itr->right!=nullptr){
-                        itr.right=child;
+                        itr->right=child;
                     }
                     else{
-                       itr.right=new Node(child);
+                       itr->right=new Node(child);
                     }
                 }
                 itr= itr->right;
@@ -77,18 +77,18 @@ namespace ariel{
                 /* Extrame left*/
                 while (itr!=NULL)
                 {
-                    s.push(itr);
+                    stk->push(itr);
                     itr=itr->left;
                 }
 
-                itr= itr.top();
-                itr.pop();
+                // stk= stk->top();
+                stk = stk->pop();
                 if(itr->data==perent){
                     if(itr->left!=nullptr){
-                        itr.left=child;
+                        itr->left=child;
                     }
                     else{
-                       itr.left=new Node(child);
+                       itr->left=new Node(child);
                     }
                 }
                 itr= itr->right;
@@ -97,7 +97,7 @@ namespace ariel{
         } 
         
         
- class iterator{
+class iterator{
 
 	private:
         stack<Node*> stk;
@@ -105,18 +105,49 @@ namespace ariel{
         list<Node*> PostList;
         string Order;
 	public:
-    iterator(string order, Node* nodePtr=nullptr): currNode(nodePtr)
-    {
 
-    }
-    T& operator*() const{
-        return currNode->data;
-    }
-    // smart pointer TT*
-    T* operator->() const{
-        return &(currNode->data);
-    }
+        //should update the currNode acording to order type that required (inOrder , preOrder, postOrder)
+        // using case and order that define by strings
+        iterator(string order, Node* nodePtr=nullptr): currNode(nodePtr)
+        {
+            
+        }   
+        
+        // data's pointer
+        T& operator*() const{
+            return currNode->data;
+        }
 
- }
+        // smart pointer T*
+        T* operator->() const{
+            return &(currNode->data);
+        }
+
+};
+            iterator begin_preorder(){
+                return iterator("pre", root);
+            }
+            iterator end_preorder(){
+                return iterator("pre", nullptr);
+            }
+            iterator begin_inorder(){
+                return iterator("in", root);
+            }
+            iterator end_inorder(){
+                return iterator("in", nullptr);
+            }
+            iterator begin_postorder(){
+                return iterator("post", root);
+            }
+            iterator end_postorder(){
+                return iterator("post", nullptr);
+            }
+            iterator begin(){
+                return iterator("in", root);
+            }
+            iterator end(){
+                return iterator("in", nullptr);
+            }
+
     };
 }

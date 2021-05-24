@@ -69,7 +69,8 @@ namespace ariel{
 
             BinaryTree<T> add_right(const T& exist,const T& New){
                  if(root==nullptr){
-                    throw (string)"there is no root yes";
+                    throw "Exepction: binary tree is empty, no root created!";
+
                 }
                 // cout<<"add_right"<<endl;
                 stack<Node*> s;
@@ -130,7 +131,7 @@ namespace ariel{
                         current_node=s.top();
                         s.pop();
                     }
-                    else{
+                    else{ // postorder
                         while(current_node != nullptr || !s.empty()){
                             if(current_node != nullptr){
                                 s.push(current_node);
