@@ -31,9 +31,12 @@ int main() {
         |---|
         4   5
   */
-
+  // auto it=tree_of_ints.begin_preorder();
   for (auto it=tree_of_ints.begin_preorder(); it!=tree_of_ints.end_preorder(); ++it) {
     cout << (*it) << " " ;
+  // it=tree_of_ints.end_preorder();
+    // cout << (*it) << " " ;
+
   }  // prints: 1 2 4 5 3
   for (auto it=tree_of_ints.begin_inorder(); it!=tree_of_ints.end_inorder(); ++it) {
     cout << (*it) << " " ;
@@ -47,7 +50,7 @@ int main() {
   }  // prints: 4 2 5 1 3 
 
 
-  // The same should work with other types, e.g. with strings:
+  // // The same should work with other types, e.g. with strings:
   
   BinaryTree<string> tree_of_strings;
   tree_of_strings.add_root("1")     
